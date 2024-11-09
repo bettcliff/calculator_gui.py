@@ -42,7 +42,43 @@ class ModernCalculator:
         main_frame = tk.Frame(self.root, bg='#1a1a1a', padx=20, pady=20)
         main_frame.pack(expand=True, fill='both')
         
-        # Title with gradient effect
+        # Result frame moved to top
+        result_frame = tk.Frame(main_frame, bg='#2d2d2d', pady=10)
+        result_frame.pack(fill='x', pady=(0, 20))  # Reduced top padding, added bottom margin
+        
+        # Create a calculator display-like result box
+        result_display = tk.Frame(result_frame, 
+                                bg='#232323',
+                                highlightbackground='#00ff9d',
+                                highlightthickness=2,
+                                bd=0)
+        result_display.pack(fill='x', padx=20)
+        
+        # Add inner frame for additional styling
+        inner_display = tk.Frame(result_display,
+                               bg='#1a1a1a',
+                               padx=15,
+                               pady=15)
+        inner_display.pack(fill='x', padx=2, pady=2)
+        
+        result_label = tk.Label(inner_display,
+                              textvariable=self.result_var,
+                              font=('Consolas', 16, 'bold'),
+                              bg='#1a1a1a',
+                              fg='#00ff9d',
+                              justify='right',
+                              anchor='e',
+                              width=30,
+                              height=2)
+        result_label.pack(expand=True)
+
+        # Add a subtle "screen reflection" effect
+        reflection = tk.Frame(result_display,
+                            height=2,
+                            bg='#00ff9d')
+        reflection.pack(fill='x', padx=20)
+        
+        # Title with gradient effect - moved below result
         title_frame = tk.Frame(main_frame, bg='#1a1a1a')
         title_frame.pack(fill='x', pady=(0, 20))
         
@@ -70,7 +106,7 @@ class ModernCalculator:
             'font': ('Helvetica', 14),
             'bg': '#2d2d2d',
             'fg': '#ffffff',
-            'insertbackground': '#00ff9d',  # Cursor color
+            'insertbackground': '#00ff9d',
             'relief': 'flat',
             'bd': 0
         }
@@ -128,31 +164,6 @@ class ModernCalculator:
         
         operations_frame.grid_columnconfigure(0, weight=1)
         operations_frame.grid_columnconfigure(1, weight=1)
-        
-        # Result frame - Modified with smaller font
-        result_frame = tk.Frame(main_frame, bg='#2d2d2d', pady=20)
-        result_frame.pack(fill='x', pady=20)
-        
-        # Result header
-        tk.Label(result_frame,
-                text="RESULT",
-                font=('Helvetica', 12, 'bold'),
-                bg='#2d2d2d',
-                fg='#00ff9d',
-                pady=10).pack()
-        
-        # Create result display area
-        result_display = tk.Frame(result_frame, bg='#232323', pady=15, padx=20)
-        result_display.pack(fill='x', padx=20)
-        
-        result_label = tk.Label(result_display,
-                              textvariable=self.result_var,
-                              font=('Helvetica', 14, 'bold'),  # Reduced from 20 to 14
-                              bg='#232323',
-                              fg='#ffffff',
-                              pady=10,  # Reduced padding
-                              wraplength=400)
-        result_label.pack(expand=True)
         
         # Clear button
         clear_btn = tk.Button(main_frame,
